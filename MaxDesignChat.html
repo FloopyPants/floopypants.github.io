@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Design Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #chat-container {
+            width: 500px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        #chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #nickname-input, #message-input {
+            padding: 10px;
+        }
+
+        #nickname-input {
+            width: calc(100% - 60px);
+            margin-bottom: 10px;
+        }
+
+        #message-input {
+            width: calc(100% - 60px);
+        }
+
+        #send-button {
+            width: 50px;
+            padding: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .nickname {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <input type="text" id="nickname-input" placeholder="Enter your nickname">
+        <div id="chat-box"></div>
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-button" onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const chatBox = document.getElementById('chat-box');
+            const nicknameInput = document.getElementById('nickname-input');
+            const messageInput = document.getElementById('message-input');
+            const nickname = nicknameInput.value;
+            const message = messageInput.value;
+
+            if (nickname && message) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                
+                const nicknameElement = document.createElement('span');
+                nicknameElement.classList.add('nickname');
+                nicknameElement.textContent = nickname + ': ';
+                
+                const textElement = document.createElement('span');
+                textElement.textContent = message;
+
+                messageElement.appendChild(nicknameElement);
+                messageElement.appendChild(textElement);
+                chatBox.appendChild(messageElement);
+
+                messageInput.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } else if (!nickname) {
+                alert('Please enter a nickname');
+            }
+        }
+    </script>
+</body>
+</html>
